@@ -1,0 +1,48 @@
+name: Build and Deploy the Expense Tracker App
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  update:
+    name: Update AI Classifier App Image
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+
+    - name: Login to DockerHub Registry
+      run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+    - name: Build, tag, and push image to docker hub
+      env:
+        HUB_REPOSITORY: kamarafidele/expense_tracker
+        IMAGE_TAG: latest
+      run: |
+        # Build a docker container and push it to Docker hub
+
+        docker build -t $HUB_REPOSITORY:$IMAGE_TAG -f Dockerfile .
+        docker push $HUB_REPOSITORY:$IMAGE_TAG
+
+        echo "::set-output name=image::$HUB_REPOSITORY:$IMAGE_TAG"
+
+    - name: Deploy The IMAGE to Server
+      uses: appleboy/ssh-action@master
+      with:
+        host: 159.223.178.26
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.PRIVATE_KEY }}
+        port: 22
+        script: |
+            # Stop and remove the existing container if it exists
+            sudo docker stop expense_tracker
+            
+            sudo docker rm expense_tracker
+            sudo docker pull kamarafidele/expense_tracker:latest
+
+            docker run -d --name expense_tracker -p 3000:3000 kamarafidele/expense_tracker:latest
+
+            # Free up space
+            sudo docker system prune -f
