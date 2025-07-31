@@ -1,5 +1,7 @@
 # Use Node.js LTS
 FROM node:18-alpine
+# Install python
+RUN apk add --no-cache python3 make g++
 
 # Create app directory
 WORKDIR /app
