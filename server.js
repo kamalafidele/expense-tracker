@@ -92,5 +92,5 @@ app.get('/api/summary', authenticate, (req, res) => {
   res.json(summary);
 });
 
-const PORT = 8000;
+const PORT = 8080;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
