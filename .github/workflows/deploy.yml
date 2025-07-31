@@ -39,7 +39,8 @@ jobs:
             # Stop and remove the existing container if it exists
             sudo docker stop expense_tracker
             
-            # sudo docker rm expense_tracker
+            sudo docker rm expense_tracker
+            
             sudo docker pull kamarafidele/expense_tracker:latest
 
             docker run -d --name expense_tracker -p 8080:8080 kamarafidele/expense_tracker:latest
