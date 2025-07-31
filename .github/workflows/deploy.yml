@@ -42,7 +42,7 @@ jobs:
             sudo docker rm expense_tracker
             sudo docker pull kamarafidele/expense_tracker:latest
 
-            docker run -d --name expense_tracker -p 3000:3000 kamarafidele/expense_tracker:latest
+            docker run -d --name expense_tracker -p 8080:8080 kamarafidele/expense_tracker:latest
 
             # Free up space
             sudo docker system prune -f
