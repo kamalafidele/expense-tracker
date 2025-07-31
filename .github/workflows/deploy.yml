@@ -1,11 +1,11 @@
 name: Build and Deploy the Expense Tracker App
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   update:
-    name: Update AI Classifier App Image
+    name: Update Expense Tracker App Image
     runs-on: ubuntu-latest
 
     steps:
