@@ -33,13 +33,13 @@ SECRET_KEY=your_random_secret_here
 node server.js
 ```
 
-Visit: `http://localhost:3000`
+Visit: `http://localhost:8080`
 
 ## Docker Deployment
 
 ```bash
 docker build -t expense-tracker .
-docker run -p 3000:3000 expense-tracker
+docker run -p 8080:8080 expense-tracker
 ```
 
 ## Project Structure
