@@ -4,7 +4,7 @@ events {
 
 http {
     upstream expense_app {
-        server app:3000;       # Docker DNS: “app” is your Node.js service
+        server app:8080;       # Docker DNS: “app” is Node.js service
     }
 
     server {

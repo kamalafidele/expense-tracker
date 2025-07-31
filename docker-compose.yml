@@ -3,17 +3,11 @@ version: '3.8'
 services:
   # Node app
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    # EXPOSE it to the internal Docker network
+    image: kamarafidele/expense_tracker:latest
     expose:
-      - "3000"
+      - "8080"
     environment:
-      - NODE_ENV=development
-    depends_on:
-      - postgres
-      - redis
+      - NODE_ENV=production
     networks:
       - expense-network
 
@@ -28,28 +22,6 @@ services:
       - app
     networks:
       - expense-network
-
-  postgres:
-    image: postgres:13
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=your_db
-      - POSTGRES_USER=your_user
-      - POSTGRES_PASSWORD=your_password
-    networks:
-      - expense-network
-
-  redis:
-    image: redis:6
-    volumes:
-      - redis-data:/data
-    networks:
-      - expense-network
-
-volumes:
-  postgres-data:
-  redis-data:
 
 networks:
   expense-network:
